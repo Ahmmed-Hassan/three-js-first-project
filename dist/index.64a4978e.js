@@ -585,14 +585,34 @@ const camera = new _three.PerspectiveCamera(75, window.innerWidth / window.inner
 const orbit = new (0, _orbitControls.OrbitControls)(camera, renderer.domElement);
 const axesHelper = new _three.AxesHelper(3);
 // scene.add(axesHelper);
-camera.position.set(1, 1, 3);
+camera.position.set(-10, 30, 30);
 orbit.update();
-const boxGeometry = new _three.BoxGeometry();
+const boxGeometry = new _three.BoxGeometry(5, 5, 5);
 const boxMaterial = new _three.MeshBasicMaterial({
     color: 0x00FF00
 });
 const box = new _three.Mesh(boxGeometry, boxMaterial);
 scene.add(box);
+box.position.set(10, 10, 0);
+const planeGeometry = new _three.PlaneGeometry(30, 30);
+const planeMaterial = new _three.MeshBasicMaterial({
+    color: 0xFFFFFF,
+    side: _three.DoubleSide
+});
+const plane = new _three.Mesh(planeGeometry, planeMaterial);
+scene.add(plane);
+//rotates the plane to be horizontal
+plane.rotation.x = -0.5 * Math.PI;
+const gridHelper = new _three.GridHelper(30);
+scene.add(gridHelper);
+const sphereGeometry = new _three.SphereGeometry(4, 50, 50);
+const sphereMaterial = new _three.MeshBasicMaterial({
+    color: 0x0000FF,
+    wireframe: false
+});
+const sphere = new (0, _three.Mesh)(sphereGeometry, sphereMaterial);
+scene.add(sphere);
+sphere.position.set(-10, 10, 0);
 function animate() {
     box.rotation.x += 0.01;
     box.rotation.y += 0.01;
